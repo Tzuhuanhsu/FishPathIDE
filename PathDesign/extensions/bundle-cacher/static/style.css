@@ -1,0 +1,59 @@
+#build-plugin {
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+.url {
+	color: #808080;
+}
+
+.titleColor {
+	background-color: #323232;
+}
+
+.columnColor {
+	background-color: #202020;
+}
+
+.border {
+	border-width: 1px;
+	border-color: dimgray;
+}
+
+.title {
+	border-style: solid;
+	text-indent: 1em;
+}
+
+.title-slot {
+	border-style: solid solid solid none;
+	text-align: center;
+}
+
+.column {
+	border-style: none none solid solid;
+}
+
+.column-slot {
+	border-style: none solid solid;
+	text-align: center;
+}
+
+.flex {
+	display: flex;
+}
+
+.first {
+	flex: 2;
+	gap: 3px;
+}
+
+.second {
+	flex: 1;
+}
+
+.center {
+	align-items: center;
+	justify-content: center;
+}

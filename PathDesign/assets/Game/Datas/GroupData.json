@@ -1,0 +1,12 @@
+{
+    "Group_1": [
+        {
+            "PathID": 0,
+            "FishId": 3,
+            "Quantity": 60,
+            "IntervalTime": 1.6,
+            "ShowTime": 0,
+            "extra": ""
+        }
+    ]
+}

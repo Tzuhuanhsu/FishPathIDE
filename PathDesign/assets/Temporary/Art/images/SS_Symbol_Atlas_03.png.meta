@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "34af5519-37c4-4602-a61e-aad603f93cf8",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "SS_Symbol_Atlas_03": {
+      "ver": "1.0.3",
+      "uuid": "a1bd7a9e-ef61-4a73-b733-5c857c0386d2",
+      "rawTextureUuid": "34af5519-37c4-4602-a61e-aad603f93cf8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 1.5,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 0,
+      "width": 2028,
+      "height": 1787,
+      "rawWidth": 2031,
+      "rawHeight": 1787,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "34af5519-37c4-4602-a61e-aad603f93cf8@6c48a",
+      "displayName": "SS_Symbol_Atlas_03",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "34af5519-37c4-4602-a61e-aad603f93cf8",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "34af5519-37c4-4602-a61e-aad603f93cf8@6c48a"
+  }
+}

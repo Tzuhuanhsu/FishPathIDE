@@ -1,0 +1,13 @@
+{
+  "ver": "1.2.0",
+  "importer": "directory",
+  "imported": true,
+<<<<<<< HEAD
+  "uuid": "31668da5-d1f1-4dc6-8edb-fd7dab68e046",
+=======
+  "uuid": "8c11f5ae-887f-490f-ac81-100c37cfb343",
+>>>>>>> d5426360b05dc58c3b7778094512410888da40ba
+  "files": [],
+  "subMetas": {},
+  "userData": {}
+}

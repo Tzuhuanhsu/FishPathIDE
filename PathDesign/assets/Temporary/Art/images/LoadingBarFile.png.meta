@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "ed52c6f6-ecdd-4ea0-a319-a73f23de5362",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "LoadingBarFile": {
+      "ver": "1.0.3",
+      "uuid": "f4bf8a4c-89cd-465e-bd56-8fca303ecc7d",
+      "rawTextureUuid": "ed52c6f6-ecdd-4ea0-a319-a73f23de5362",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 200,
+      "height": 14,
+      "rawWidth": 200,
+      "rawHeight": 14,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "ed52c6f6-ecdd-4ea0-a319-a73f23de5362@6c48a",
+      "displayName": "LoadingBarFile",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "ed52c6f6-ecdd-4ea0-a319-a73f23de5362",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "ed52c6f6-ecdd-4ea0-a319-a73f23de5362@6c48a"
+  }
+}

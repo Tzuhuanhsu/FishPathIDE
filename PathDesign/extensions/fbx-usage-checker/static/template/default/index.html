@@ -1,0 +1,61 @@
+<div class="full">
+	<div id="app" class="full">
+		<template v-if="isScanning">
+			<div class="loading">
+				<ui-loading loading></ui-loading>
+				<ui-label>Scanning</ui-label>
+			</div>
+		</template>
+		<template v-else>
+			<div class="toolbar">
+				<ui-button @click="checkAssets()" outline>
+					<ui-icon value="search"></ui-icon>
+					<ui-label value=""></ui-label>
+				</ui-button>
+				<ui-button @click="clear()" outline>
+					<ui-icon value="clear"></ui-icon>
+					<ui-label value=""></ui-label>
+				</ui-button>
+			</div>
+			<ui-tab class="tab">
+				<ui-button class="tabButton">Asset Path</ui-button>
+				<ui-button class="tabButton">Asset Reference</ui-button>
+				<ui-button class="tabButton">Reference Count</ui-button>
+				<ui-button class="tabButton">Replacement Asset</ui-button>
+			</ui-tab>
+			<div class="box">
+				<template v-for="(value, key) in warningAssets">
+					<div class="flex">
+						<ui-icon v-if="!value.isExpand" @click="value.isExpand = true" value="arrow-triangle"
+							class="itemOn"></ui-icon>
+						<ui-icon v-else @click="value.isExpand = false" value="arrow-triangle"
+							class="itemOff"></ui-icon>
+						<ui-icon color="." :value="value.info.importer"></ui-icon>
+						<ui-label class="slot_1" :value="value.info.name"></ui-label>
+						<ui-asset class="slot_2" readonly :droppable="value.info.type" :value="key"></ui-asset>
+						<ui-label class="slot_3" :value="value.refs"></ui-label>
+						<template v-if="value.replacedUuid">
+							<ui-asset class="slot_4_button" :droppable="value.info.type" :value="value.replacedUuid"
+								@confirm="value.replacedUuid = $event.target.value"></ui-asset>
+							<ui-button type="warning" type="icon"
+								@click="resolveDependency(value.info, value.replacedUuid)">
+								<ui-icon value="whirl"></ui-icon>
+							</ui-button>
+						</template>
+						<ui-asset v-else class="slot_4" :droppable="value.info.type" :value="value.replacedUuid"
+							@confirm="value.replacedUuid = $event.target.value"></ui-asset>
+					</div>
+					<template v-if="value.isExpand == true">
+						<div v-for="(value2, key2) in value.relativeAssets" class="foldFlex">
+							<ui-icon class="slot_1_icon" color="." :value="value2.info.importer"></ui-icon>
+							<ui-label class="slot_1" :value="value2.info.name"></ui-label>
+							<ui-asset class="slot_2" readonly droppable="value.info.type" :value="key2"></ui-asset>
+							<ui-label class="slot_3" :value="value2.refs"></ui-label>
+							<ui-label class="slot_4"></ui-label>
+						</div>
+					</template>
+				</template>
+			</div>
+		</template>
+	</div>
+</div>

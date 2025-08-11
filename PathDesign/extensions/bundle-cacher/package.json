@@ -1,0 +1,31 @@
+{
+	"$schema": "./@types/schema/package/index.json",
+	"package_version": 2,
+	"name": "bundle-cacher",
+	"version": "1.0.0",
+	"author": "Ray Chiu",
+	"editor": ">=3.8.2",
+	"scripts": {
+		"preinstall": "node ./scripts/preinstall.js",
+		"build": "tsc"
+	},
+	"title": "i18n:bundle-cacher.title",
+	"description": "i18n:bundle-cacher.description",
+	"contributions": {
+		"builder": "./dist/builder.js",
+		"asset-db": {
+            "mount": {
+                "path": "./assets",
+                "readonly": true
+            }
+        }
+	},
+	"dependencies": {
+		"vue": "3.5.13",
+		"path": "0.12.7"		
+	},
+	"devDependencies": {
+		"@cocos/creator-types": "^3.8.2",
+		"@types/node": "^18.17.1"		
+	}
+}

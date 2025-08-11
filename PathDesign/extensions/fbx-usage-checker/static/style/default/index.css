@@ -1,0 +1,85 @@
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+.box{	
+	margin: 0px 10px;
+	border-style: none solid solid;	
+	border-width: 1px;	
+	border-color: gray;
+	
+	height: calc(100% - 60px);	
+
+	overflow-y: scroll;
+
+	p {
+		line-height: 1.5;
+		padding: 1em;
+	}
+}
+
+ui-label{
+	user-select:text;
+}
+
+.loading{
+	height: 100%; 
+	align-items: center; 
+	justify-content: center;
+}
+
+.loading,
+.tab,
+.flex,
+.foldFlex{
+	display: flex;
+}
+
+.toolbar,
+.foldFlex{
+	background-color:rgb(30, 30, 30);
+}
+
+.tab{
+	margin: 10px 10px 0;
+}
+
+.tabButton{
+	border-color: gray;
+	overflow: hidden;
+}
+
+.itemOn,
+.itemOff{
+	cursor: pointer;
+}
+
+.itemOn{
+	transform: rotate(-90deg)
+}
+
+.slot_1{
+	flex:0 0 calc(25% - 30px);
+}
+
+.slot_1_icon{
+	margin-left: 16px;
+}
+
+.slot_2,
+.slot_3{
+	flex: 1;
+}
+
+.slot_3{	
+	text-align: center;
+}
+
+.slot_4{
+	flex: 0 0 calc(25% - 8px);
+}
+
+.slot_4_button{
+	flex: 0 0 calc(25% - 38px);
+}

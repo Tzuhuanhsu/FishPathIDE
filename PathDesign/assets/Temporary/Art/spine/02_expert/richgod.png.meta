@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "06f28abe-7c1e-4376-a9e8-7841737e5098",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "richgod": {
+      "ver": "1.0.3",
+      "uuid": "5eb4c52d-97d5-4072-9130-611f4842de6e",
+      "rawTextureUuid": "06f28abe-7c1e-4376-a9e8-7841737e5098",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 281,
+      "height": 281,
+      "rawWidth": 285,
+      "rawHeight": 285,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "06f28abe-7c1e-4376-a9e8-7841737e5098@6c48a",
+      "displayName": "richgod",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "06f28abe-7c1e-4376-a9e8-7841737e5098",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "06f28abe-7c1e-4376-a9e8-7841737e5098@6c48a"
+  }
+}

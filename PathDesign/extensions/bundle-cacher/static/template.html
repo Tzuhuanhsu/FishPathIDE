@@ -1,0 +1,17 @@
+<div id="build-plugin">
+	<div class="flex titleColor">
+		<div class="border title first">Bundles</div>
+		<div class="border title-slot second">Force Clear</div>
+	</div>
+	<div class="flex columnColor" v-for="(value, key) in bundles">
+		<div class="flex border column first">
+			<ui-checkbox :value="settings[key]?.needZip" @change="e=>changeZip(key, e)">{{key}}</ui-checkbox>
+			<div class="url">({{value}})</div>
+		</div>
+		<div class="border column-slot second">
+			<ui-checkbox v-if="settings[key]?.needZip" :value="settings[key]?.forceClear"
+				@change="e=>changeClear(key, e)"></ui-checkbox>
+			<ui-label v-else>-<label>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+{
+    "$schema": "./@types/schema/package/index.json",
+    "package_version": 2,
+    "name": "fbx-usage-checker",
+    "version": "1.0.0",
+    "author": "Ray Chiu",
+    "editor": ">=3.8.2",
+    "scripts": {
+        "preinstall": "node ./scripts/preinstall.js",
+        "build": "tsc"
+    },
+    "description": "i18n:fbx-usage-checker.description",
+    "main": "./dist/main.js",
+    "dependencies": {
+        "vue": "^3.1.4",
+        "fs-extra": "^10.0.0"
+    },
+    "devDependencies": {
+        "@cocos/creator-types": "^3.8.2",
+        "@types/fs-extra": "^9.0.5",
+        "@types/node": "^18.17.1"
+    },
+    "panels": {
+        "default": {
+            "title": "i18n:fbx-usage-checker.open_panel",
+            "type": "dockable",
+            "main": "dist/panels",
+            "size": {
+                "min-width": 500,
+                "min-height": 300,
+                "width": 1024,
+                "height": 600
+            }
+        }
+    },
+    "contributions": {
+        "builder": "./dist/builder.js",
+        "menu": [
+            {
+                "path": "i18n:fbx-usage-checker.test_menu",
+                "label": "i18n:fbx-usage-checker.open_panel",
+                "message": "open-panel"
+            }           
+        ],
+        "messages": {
+            "open-panel": {
+                "methods": [
+                    "openPanel"
+                ]
+            }            
+        },
+        "scene": {
+            "script": "dist/scene.js"
+        }       
+    }
+}

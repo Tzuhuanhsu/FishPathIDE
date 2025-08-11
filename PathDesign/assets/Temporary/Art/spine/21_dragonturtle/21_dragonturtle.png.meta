@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "3bd4bb45-c1b5-4fb8-81b6-b1b5206ef5d3",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "21_dragonturtle": {
+      "ver": "1.0.3",
+      "uuid": "5a4732a9-1fc0-4edb-a472-fbddb8c17e00",
+      "rawTextureUuid": "3bd4bb45-c1b5-4fb8-81b6-b1b5206ef5d3",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 632,
+      "height": 632,
+      "rawWidth": 636,
+      "rawHeight": 636,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "3bd4bb45-c1b5-4fb8-81b6-b1b5206ef5d3@6c48a",
+      "displayName": "21_dragonturtle",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "3bd4bb45-c1b5-4fb8-81b6-b1b5206ef5d3",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "3bd4bb45-c1b5-4fb8-81b6-b1b5206ef5d3@6c48a"
+  }
+}

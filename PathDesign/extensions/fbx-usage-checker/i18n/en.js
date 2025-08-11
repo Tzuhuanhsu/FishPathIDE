@@ -1,0 +1,1 @@
+"use strict"; module.exports = { open_panel: "fbx Usage Checking Tool", send_to_panel: "Send message to Default Panel", description: "Check if the use of sub-assets in fbx is compliant", test_menu: "Testing" };

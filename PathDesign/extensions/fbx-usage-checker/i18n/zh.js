@@ -1,0 +1,1 @@
+"use strict"; module.exports = { open_panel: "fbx資源驗證工具", send_to_panel: "发送消息给面板", description: "檢查.fbx檔案中子資產的使用是否合規", test_menu: "測試" };

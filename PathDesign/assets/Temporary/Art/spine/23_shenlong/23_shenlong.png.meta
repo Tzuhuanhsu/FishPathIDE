@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "06f53136-bb57-4d99-9e2f-e6f5532fe843",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "23_shenlong": {
+      "ver": "1.0.3",
+      "uuid": "f8ab4394-7743-4b0b-bb54-21dc1e30a514",
+      "rawTextureUuid": "06f53136-bb57-4d99-9e2f-e6f5532fe843",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 951,
+      "height": 951,
+      "rawWidth": 955,
+      "rawHeight": 955,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "06f53136-bb57-4d99-9e2f-e6f5532fe843@6c48a",
+      "displayName": "23_shenlong",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "06f53136-bb57-4d99-9e2f-e6f5532fe843",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "06f53136-bb57-4d99-9e2f-e6f5532fe843@6c48a"
+  }
+}
