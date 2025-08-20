@@ -1,86 +1,76 @@
 import * as cc from "cc";
-const { ccclass, property, executeInEditMode, type } = cc._decorator;
+import { CustomEventNode } from "./CustomEventNode";
+import { IPathInfo, PathInfo } from "./PathInfo";
+
+const { ccclass, property, executeInEditMode, requireComponent } = cc._decorator;
+
+
+
 
 
 @ccclass( 'FishBezierGroup' )
 @executeInEditMode( true )
+@requireComponent( cc.Graphics )
 export class FishBezierGroup extends cc.Component
 {
-    @property( { type: cc.Node, tooltip: "Bezier First Node", displayName: "First Node" } )
-    private firstNode: cc.Node = null;
-
-    @property( { type: cc.Node, tooltip: "Bezier Second Node", displayName: "Second Node" } )
-    private secondNode: cc.Node = null;
-
-    @property( { type: cc.Node, tooltip: "Bezier Third Node", displayName: "Third Node" } )
-    private thirdNode: cc.Node = null;
-
-    @property( { type: cc.Node, tooltip: "Bezier Fourth Node", displayName: "Fourth Node" } )
-    private fourthNode: cc.Node = null;
 
     @property( { type: cc.CCFloat, tooltip: "Bezier Segment Count", displayName: "Segment Count" } )
     private segmentCount: number = 20;
 
+    @property( { type: cc.CCBoolean } )
+    private refreshOnLoad: boolean = false;
 
-    @property( { type: cc.CCFloat, tooltip: "Move Speed", displayName: "Move Speed" } )
-    public moveSpeed: number = 100;
 
-    protected update( dt: number ): void
+    private graphics: cc.Graphics;
+    private _pathInfo: PathInfo = new PathInfo();
+    protected onLoad(): void
     {
+        this.graphics = this.getComponent( cc.Graphics );
+        if ( !this.graphics )
+        {
+            console.error( "FishBezierGroup requires a Graphics component." );
+            return;
+        }
+
+        // 確保 PathInfo 的快取已初始化
+        if ( !this._pathInfo )
+        {
+            this._pathInfo = new PathInfo();
+        }
+        this._pathInfo.invalidateCache();
+    }
+
+
+    protected update(): void
+    {
+
+        if ( !this.refreshOnLoad )
+        {
+            return;
+        }
+
+        this._pathInfo.SetWaypoints( {
+            Waypoints: this.node.getComponentsInChildren( CustomEventNode ).map( wp => wp.CustomPointInfo ),
+            SegmentCount: this.segmentCount
+        } );
+
+        if ( this._pathInfo.Waypoints.length < 2 )
+        {
+            console.warn( "Not enough waypoints to draw a path." );
+            return;
+        }
         this.Draw();
     }
 
-    Draw()  
-    {
-        //計算出所有的貝塞爾曲線點
-        if ( !this.firstNode || !this.secondNode || !this.thirdNode || !this.fourthNode ) return;
-        const points: cc.Vec3[] = [];
-        for ( let i = 0; i <= this.segmentCount; i++ )
-        {
-            const t = i / this.segmentCount;
-            const point = this.calculateBezierPoint( t );
-            points.push( point );
-        }
-
-        // 在這裡你可以使用計算出的點來繪製路徑或進行其他操作
-        this.drawPath( points );
-    }
 
     /**
-     * 計算三次貝塞爾曲線上的點
-     * @param t 參數 t (0到1之間)
-     * @returns 貝塞爾曲線上的點
+     * 繪製路線
+     * @returns 
      */
-    private calculateBezierPoint( t: number ): cc.Vec3
+    Draw()  
     {
-        const p0 = this.firstNode.worldPosition;
-        const p1 = this.secondNode.worldPosition;
-        const p2 = this.thirdNode.worldPosition;
-        const p3 = this.fourthNode.worldPosition;
-
-        // 三次貝塞爾曲線公式: B(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃
-        const oneMinusT = 1 - t;
-        const oneMinusTSquared = oneMinusT * oneMinusT;
-        const oneMinusTCubed = oneMinusTSquared * oneMinusT;
-        const tSquared = t * t;
-        const tCubed = tSquared * t;
-
-        const x = oneMinusTCubed * p0.x +
-            3 * oneMinusTSquared * t * p1.x +
-            3 * oneMinusT * tSquared * p2.x +
-            tCubed * p3.x;
-
-        const y = oneMinusTCubed * p0.y +
-            3 * oneMinusTSquared * t * p1.y +
-            3 * oneMinusT * tSquared * p2.y +
-            tCubed * p3.y;
-
-        const z = oneMinusTCubed * p0.z +
-            3 * oneMinusTSquared * t * p1.z +
-            3 * oneMinusT * tSquared * p2.z +
-            tCubed * p3.z;
-
-        return new cc.Vec3( x, y, z );
+        if ( this._pathInfo.Waypoints.length < 2 ) return;
+        this.drawPath( this._pathInfo.getSmoothBezierPoints() );
     }
 
     /**
@@ -89,13 +79,8 @@ export class FishBezierGroup extends cc.Component
      */
     private drawPath( points: cc.Vec3[] ): void
     {
-
-        // 如果需要在編輯器中顯示路徑，可以添加 Graphics 組件
-        const graphics = this.getComponent( cc.Graphics );
-        if ( graphics )
-        {
-            this.drawBezierCurve( graphics, points );
-        }
+        if ( !this.graphics ) return;
+        this.drawBezierCurve( this.graphics, points );
     }
 
     /**
@@ -105,10 +90,7 @@ export class FishBezierGroup extends cc.Component
      */
     private drawBezierCurve( graphics: cc.Graphics, points: cc.Vec3[] ): void
     {
-        graphics.clear();
-        graphics.strokeColor = cc.Color.RED;
-        graphics.lineWidth = 10;
-
+        this.graphics.clear();
         if ( points.length < 2 ) return;
 
         // 將世界座標轉換為本地座標
@@ -127,43 +109,51 @@ export class FishBezierGroup extends cc.Component
         graphics.stroke();
     }
 
+
+
+
     /**
-     * 獲取指定參數 t 位置的點
-     * @param t 參數 t (0到1之間)
-     * @returns 貝塞爾曲線上的點
+     * 取得路徑的基本資訊
+     * 包括所有節點、段數、延遲時間和自訂事件
      */
-    public getPointAtT( t: number ): cc.Vec3
+    public GetBaseInfo(): IPathInfo
     {
-        return this.calculateBezierPoint( Math.max( 0, Math.min( 1, t ) ) );
+        return this._pathInfo;
     }
 
     /**
-     * 獲取整條貝塞爾曲線的點陣列
-     * @returns 貝塞爾曲線上的所有點
+     * 設定路徑基本資訊
      */
-    public getBezierPoints(): cc.Vec3[]
+    public SetBaseInfo( info: IPathInfo ): void
     {
-        if ( !this.firstNode || !this.secondNode || !this.thirdNode || !this.fourthNode ) 
+        for ( const wayPoint of this.node.children )
         {
-            return [];
+            wayPoint.destroy();
         }
 
-        const points: cc.Vec3[] = [];
-        for ( let i = 0; i <= this.segmentCount; i++ )
+        this.node.removeAllChildren();
+        const customEventNodes: CustomEventNode[] = []
+        const newWayPoints = info.Waypoints.map( _ => new cc.Node() );
+        for ( let i = 0; i < newWayPoints.length; i++ )
         {
-            const t = i / this.segmentCount;
-            const point = this.calculateBezierPoint( t );
-            points.push( point );
+            const wayInfo = info.Waypoints[ i ];
+            const customEventNode = newWayPoints[ i ].addComponent( CustomEventNode );
+            newWayPoints[ i ].parent = this.node;
+
+            customEventNode.node.setWorldPosition(
+                cc.v3( wayInfo.pos.x, wayInfo.pos.y, wayInfo.pos.z ) );
+            customEventNode.beginScale = wayInfo.beginScale ?? 1;
+            customEventNode.endScale = wayInfo.endScale ?? 1;
+            customEventNode.delayTime = wayInfo.delayTime ?? 0;
+            customEventNode.customEvent = wayInfo.customEvent ?? "";
+            customEventNodes.push( customEventNode );
+
         }
-        return points;
-    }
-
-
-    /**
-     * 在編輯器中預覽路徑
-     */
-    public previewPath(): void
-    {
+        this._pathInfo.SetWaypoints( {
+            Waypoints: customEventNodes.map( node => node.CustomPointInfo ),
+            SegmentCount: info.SegmentCount
+        } )
+        this.segmentCount = info.SegmentCount ?? this.segmentCount;
         this.Draw();
     }
 }

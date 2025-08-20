@@ -190,17 +190,18 @@ export class FishPathMgr extends cc.Component
                     pathNo: group.PathID,
                     ShowTime: group.ShowTime,
                     scriptBaseTime,
-                    IntervalTime: group.IntervalTime || 0
+                    IntervalTime: group.IntervalTime
                 };
 
-                const quantity = group.Quantity || 1;
+                const quantity = group.Quantity;
                 for ( let x = 0; x < quantity; x++ )
                 {
                     const entityData: IEntityData = {
                         id: this._fishLastSerial++,
                         FactoryType: baseEntityData.FactoryType,
                         pathNo: baseEntityData.pathNo,
-                        joinTime: baseEntityData.ShowTime + baseEntityData.scriptBaseTime + ( x * baseEntityData.IntervalTime )
+                        joinTime: baseEntityData.ShowTime + baseEntityData.scriptBaseTime + ( x * baseEntityData.IntervalTime ),
+                        Time: group.Time
                     };
                     this._pendingFish.push( entityData );
                 }

@@ -3,9 +3,10 @@
         {
             "PathID": 0,
             "FishId": 3,
-            "Quantity": 60,
-            "IntervalTime": 1.6,
+            "Quantity": 1000,
+            "IntervalTime": 0.2,
             "ShowTime": 0,
+            "Time": 10,
             "extra": ""
         }
     ]

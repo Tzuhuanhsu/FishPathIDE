@@ -1,98 +1,62 @@
-import { _decorator, assetManager, CCBoolean, CCFloat, Component, JsonAsset, Label, Line, Node, Vec3 } from "cc";
-import { FishPositionInfo, FishPositionInfoData } from "./FishPositionInfo";
+import { _decorator, assetManager, Component, JsonAsset, Node, Prefab, Vec3 } from "cc";
 import { FishBezierGroup } from "./FishBezierGroup";
+import { IPathInfo, PathInfo } from "./PathInfo";
 
 
 const { ccclass, property, executeInEditMode, type } = _decorator;
 
 
 
+
+
 @ccclass( 'FishPathCreator' )
 @executeInEditMode( true )
-export class FishPathCreator extends Line 
+export class FishPathCreator extends Component
 {
 
-    @property( { type: Node, tooltip: "Formation Root Node", displayName: "Formation Root" } )
-    formationRoot: Node;
-
-    @property( { type: Node, tooltip: "Path Root Node", displayName: "Path Root" } )
-    pathRoot: Node;
-
-    @property( { type: JsonAsset, tooltip: "Path Data", displayName: "Path Data" } )
+    @property( { type: JsonAsset, tooltip: "路徑資料", displayName: "路徑資料" } )
     pathData: JsonAsset;
-
-    @type( [ Vec3 ] )
-    fishPositions: Vec3[] = [];
-
-    @type( [ Vec3 ] )
-    fishRotations: Vec3[] = [];
-
-    @type( [ Vec3 ] )
-    fishScales: Vec3[] = [];
-
-    @type( [ CCFloat ] )
-    fishSpeeds: number[] = [];
-
-    @type( [ CCFloat ] )
-    fishDelays: number[] = [];
 
     @property( { tooltip: "是否刷新路徑" } )
     refreshPath: boolean = false;
 
-    start()
-    {
-        this.width.constant = 10;
-        this.worldSpace = true;
-        // this.updatePath();
-
-    }
-
-    updatePath()
-    {
-        const points = this.pathRoot.getComponentsInChildren( FishBezierGroup )
-        let positions: Vec3[] = [];
-        let rotations: Vec3[] = [];
-        let scales: Vec3[] = [];
-        let speeds: number[] = [];
-        let delays: number[] = [];
-        this.fishPositions.length = 0;
-        this.fishRotations.length = 0;
-        this.fishScales.length = 0;
-        this.fishSpeeds.length = 0;
-        this.fishDelays.length = 0;
-        for ( let i = 0; i < points.length; i++ )
+    @type( PathInfo )
+    pathInfo: IPathInfo =
         {
-
-            if ( !points[ i ] )
-            {
-                continue;
-            }
-            const group = points[ i ] as FishBezierGroup;
-            const bezierPoints = group.getBezierPoints();
-            positions = positions.concat( bezierPoints );
-            rotations = rotations.concat( Array( bezierPoints.length ).fill( new Vec3( 0, 0, 0 ) ) );
-            scales = scales.concat( Array( bezierPoints.length ).fill( new Vec3( 1, 1, 1 ) ) );
-            speeds = speeds.concat( Array( bezierPoints.length ).fill( group.moveSpeed ) );
-            delays = delays.concat( Array( bezierPoints.length ).fill( 0 ) );
+            Waypoints: [],
+            SegmentCount: 0
         }
-        this.positions = positions;
-        this.fishPositions = positions;
-        this.fishRotations = rotations;
-        this.fishScales = scales;
-        this.fishSpeeds = speeds;
-        this.fishDelays = delays;
+
+    private pathGroup: FishBezierGroup;
+    protected start(): void
+    {
+        this.pathGroup = this.getComponent( FishBezierGroup );
+
+        if ( !this.pathGroup )
+        {
+            console.error( "FishPathCreator requires a FishBezierGroup component on the pathRoot." );
+        }
     }
 
-    protected update( dt: number ): void
+
+
+    protected update(): void
     {
-        this.updatePath();
+
         if ( this.refreshPath )
         {
+            console.log( "Refreshing path data..." );
             this.refreshPath = false;
             this.RefreshPathData();
         }
+        this.pathInfo = this.pathGroup.GetBaseInfo();
     }
 
+    /**
+     * 刷新路徑數據
+     * 從 pathData 中讀取數據，並更新 pathRoot 的子節點
+     *  
+     */
     RefreshPathData()
     {
         if ( !this.pathData ) return;
@@ -104,35 +68,14 @@ export class FishPathCreator extends Line
                 return;
             }
 
-            const data: FishPositionInfoData[] = fishPositionData.json as FishPositionInfoData[];
-            this.pathRoot.children.forEach( n =>
+            const pathInfos: IPathInfo = fishPositionData.json as IPathInfo;
+            if ( !pathInfos )
             {
-                n.destroy();
-            } );
-            this.pathRoot.removeAllChildren();
-            ;
-            data.forEach( ( d, index ) =>
-            {
-                if ( index === 0 )
-                {
-                    this.formationRoot.setWorldPosition( new Vec3( d.position ) );
-                }
+                console.warn( "No path data found." );
+                return;
+            }
 
-                const node = new Node( `FishPositionInfo_${index}` );
-                const info = node.addComponent( FishPositionInfo );
-                node.parent = this.pathRoot;
-                const position = new Vec3( d.position.x, d.position.y, d.position.z );
-                const rotation = new Vec3( d.rotation.x, d.rotation.y, d.rotation.z );
-                const scale = new Vec3( d.scale.x, d.scale.y, d.scale.z );
-                const speed = d.speed;
-                node.setWorldPosition( position );
-                node.setRotationFromEuler( rotation );
-                node.setWorldScale( scale );
-                info.Speed = speed;
-
-                info.DelayTime = d.delayTime;
-
-            } );
+            this.pathGroup.SetBaseInfo( pathInfos );
         } );
     }
 }

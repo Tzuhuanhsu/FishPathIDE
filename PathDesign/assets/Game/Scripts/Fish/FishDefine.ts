@@ -68,6 +68,8 @@ export interface IGroupData
     IntervalTime: number;
     //腳本的出場時間
     ShowTime: number;
+    //路徑時間
+    Time: number;
     //額外資訊
     Extra: string;
 }
@@ -81,7 +83,9 @@ export interface IEntityData
     // 路徑編號
     pathNo: EnumFishPathID
     // 加入時間
-    joinTime: number
+    joinTime: number,
+    // 腳本時間
+    Time: number
 }
 
 // 記憶體管理：最大魚群數量限制
