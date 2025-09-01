@@ -86,7 +86,7 @@ export class FishPathRunner extends cc.Component
             }
 
             this._fishPathInfo.SetWaypoints( pathInfo );
-            this.node.setWorldPosition( this._fishPathInfo.getPointAtT( 0 ) );
+            this.node.setPosition( this._fishPathInfo.getPointAtT( 0 ) );
             this.node.active = true;
             return true;
         }
@@ -99,7 +99,7 @@ export class FishPathRunner extends cc.Component
 
 
     /**
-     * 更新角度（優化版本 - 降頻更新）
+     * 更新角度
      * @param dt 
      * @returns 
      */
@@ -136,6 +136,8 @@ export class FishPathRunner extends cc.Component
         this.node.setWorldRotationFromEuler( 0, 0, this._currentAngle );
     }
 
+
+
     /**
      * 更新腳本路徑
      * @param dt 
@@ -155,20 +157,19 @@ export class FishPathRunner extends cc.Component
         // 如果已經到達路徑終點 (t >= 1)，標記為結束
         if ( t >= 1 )
         {
-            this.node.setWorldPosition( targetPos );
+            this.node.setPosition( targetPos );
             this._isEnd = true;
             return;
         }
 
         // 直接設定到時間對應的位置
-        this.node.setWorldPosition( targetPos );
+        this.node.setPosition( targetPos );
 
-        // 計算方向用於旋轉（使用前一幀位置計算）
-        const currentPos = this.node.worldPosition;
+        // 計算方向用於旋轉（直接使用路徑位置計算，避免縮放影響）
         const prevT = Math.max( 0, Math.min( 1, ( this._elapsedTime - dt ) / this.EntityData.Time ) );
         const prevPos = this._fishPathInfo.getPointAtArcLength( prevT );
 
-        this._tmpDirection.set( currentPos ).subtract( prevPos );
+        this._tmpDirection.set( targetPos ).subtract( prevPos );
         if ( this._tmpDirection.lengthSqr() > MIN_DIRECTION_THRESHOLD )
         {
             this._direction = this._tmpDirection.normalize();
@@ -213,6 +214,7 @@ export class FishPathRunner extends cc.Component
         {
             return;
         }
+
         this._elapsedTime = TimelineMgr.Instance.ClientTime - this._spawnTime;
         this.updatePosition( dt );
         this.updateRotation( dt );
